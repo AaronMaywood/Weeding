@@ -1,5 +1,4 @@
 <script setup>
-import { state } from '../store.js';
 import Weed from './Weed.vue';
 </script>
 
