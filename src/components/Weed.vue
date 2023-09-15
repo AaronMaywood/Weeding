@@ -6,7 +6,7 @@ const props = defineProps({
 	y: Number,
 });
 const grass = computed(() => {
-	return ['.','v','w','W'][state.value[props.x][props.y]];
+	return ['','v','w','W'][state.value[props.x][props.y]];
 });
 
 function remove(){

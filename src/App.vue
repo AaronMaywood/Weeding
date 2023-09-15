@@ -1,12 +1,12 @@
 <script setup>
 import Garden from './components/Garden.vue';
-import { initialize, gameState } from './store.js';
-initialize();
+import { gameStart, isGameClear } from './store.js';
+gameStart();
 </script>
 
 <template>
 	<Garden />
-	<p class="clear" v-if="gameState === 1">GAME CLEAR!</p>
+	<p class="clear" v-if="isGameClear()">GAME CLEAR!</p>
 </template>
 
 <style scoped>

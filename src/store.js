@@ -12,12 +12,21 @@ export const state = ref([
 	[0,0,0,0,0],
 ]);
 
-export function initialize(){
+export function gameStart(){
+	gameState.value = 0;
 	for(let i=0 ; i<30 ; i++){
 		const x = Math.floor(Math.random() * X_MAX);
 		const y = Math.floor(Math.random() * Y_MAX);
 		grow(x,y);
 	}
+}
+
+function gameClear(){
+	gameState.value = 1;
+}
+
+export function isGameClear(){
+	return gameState.value === 1;
 }
 
 // 除草する
@@ -39,17 +48,19 @@ function grow(x,y){
 // 草を更新
 let counter = 0;
 function update(){
-	// ゲームオーバーになったら更新をストップ
-	if (gameState.value === 1) return;
+	// ゲームオーバーになったら以後更新をストップ
+	if (isGameClear()) return;
 
 	// 1. ランダムに空き地に草が生える
-	if( Math.random() > 0.99 ){
+	if( Math.random() > 0.985 ){
 		const x = Math.floor(Math.random() * X_MAX);
 		const y = Math.floor(Math.random() * X_MAX);
 		grow(x,y);
 	}
-	// 2. 周囲の草があれば成長が早くなる TODO 調整中
-	if( counter++ % 120 === 0 ){
+	
+	// 2. 周囲に草が茂っているときは（根が張っているので）ぐんと伸びる＝緑が濃いところほど濃くなる
+	if( counter++ % 150 === 0 ){	 // 一定間隔毎に更新
+		// 次のコマの計算のため、現在の state.value をコピーした next を用意する
 		// リアクティブなしの値のみをコピー（ディープコピー）
 		// ディープコピーの方法はこちらを参照
 		// https://developer.mozilla.org/ja/docs/Glossary/Deep_copy
@@ -57,20 +68,19 @@ function update(){
 
 		for(let x=0 ; x < X_MAX ; x++){
 			for(let y=0 ; y < Y_MAX ; y++){
-				// 隣り合った上下左右の草の数を数える
+				// 隣り合った上下左右の草の数を数える（枠外は数えない）
 				let counter = upper(x,y) + bottom(x,y) + right(x,y) + left(x,y);
-				// TODO 枠外の扱いはどうしようか？
-				// TODO どういう判定でどう草を生やそうか？
-				if(counter<2){
-					if(next[x][y] !== 0){
-						next[x][y]++;
-						if(next[x][y] > 3) {
-							next[x][y] = 3;
-						}
+				// 上下左右の草の合計が4以上のとき、現在の位置に草を生やす
+				if(counter>4){
+					next[x][y]++;
+					if(next[x][y] > 3) {
+						next[x][y] = 3;
 					}
 				}
 			}
 		}
+
+		// 計算済みの next を現在のコマに反映
 		state.value = JSON.parse(JSON.stringify(next));
 	}
 
@@ -84,11 +94,9 @@ function update(){
 		}
 	}
 	if(grassCounter === 0){
-		gameState.value = 1;	// GAME CLEAR
+		gameClear();
 	}
 	
-	//
-	//
 	requestAnimationFrame(update);
 }
 
