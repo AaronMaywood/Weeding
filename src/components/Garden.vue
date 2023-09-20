@@ -3,7 +3,6 @@ import Weed from './Weed.vue';
 </script>
 
 <template>
-	<h1>草むしり</h1>
 	<table>
 		<tr>
 			<Weed :x="0" :y="0" />
@@ -44,9 +43,6 @@ import Weed from './Weed.vue';
 </template>
 
 <style scoped>
-h1 {
-	text-align: center;
-}
 table {
 	/* 中央寄せ */
 	position: absolute;

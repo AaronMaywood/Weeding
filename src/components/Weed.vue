@@ -8,14 +8,10 @@ const props = defineProps({
 const grass = computed(() => {
 	return ['','v','w','W'][state.value[props.x][props.y]];
 });
-
-function remove(){
-	weeding(props.x, props.y);
-}
 </script>
 
 <template>
-	<td @click="remove" :class="grass">{{grass}}</td>
+	<td @click="weeding(x,y)" :class="grass">{{grass}}</td>
 </template>
 
 <style scoped>

@@ -48,13 +48,13 @@ function grow(x,y){
 // 草を更新
 let counter = 0;
 function update(){
-	// ゲームオーバーになったら以後更新をストップ
+	// ゲームクリアーになったら以後更新をストップ
 	if (isGameClear()) return;
 
 	// 1. ランダムに空き地に草が生える
 	if( Math.random() > 0.985 ){
 		const x = Math.floor(Math.random() * X_MAX);
-		const y = Math.floor(Math.random() * X_MAX);
+		const y = Math.floor(Math.random() * Y_MAX);
 		grow(x,y);
 	}
 	
@@ -84,7 +84,7 @@ function update(){
 		state.value = JSON.parse(JSON.stringify(next));
 	}
 
-	// 3. もし、草が一個もなくなったらゲームクリアー
+	// 3. もし、草が一本もなくなったらゲームクリアー
 	let grassCounter = 0;
 	for(let x=0 ; x < X_MAX ; x++){
 		for(let y=0 ; y < Y_MAX ; y++){
