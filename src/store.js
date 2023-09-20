@@ -70,7 +70,7 @@ function update(){
 			for(let y=0 ; y < Y_MAX ; y++){
 				// 隣り合った上下左右の草の数を数える（枠外は数えない）
 				let counter = upper(x,y) + bottom(x,y) + right(x,y) + left(x,y);
-				// 上下左右の草の合計が4以上のとき、現在の位置に草を生やす
+				// 上下左右の草の合計が4より多いとき、現在の位置に草を生やす
 				if(counter>4){
 					next[x][y]++;
 					if(next[x][y] > 3) {
