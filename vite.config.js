@@ -12,7 +12,7 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
   // GitHub Pages へデプロイするための追記
   base: './',	// ビルド時に相対パスを使用
   build: {
