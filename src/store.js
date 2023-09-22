@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 export const gameState = ref(0);
 
@@ -25,9 +25,9 @@ function gameClear(){
 	gameState.value = 1;
 }
 
-export function isGameClear(){
+export const isGameClear = computed(()=>{
 	return gameState.value === 1;
-}
+});
 
 // 除草する
 export function weeding(x,y){
@@ -49,7 +49,7 @@ function grow(x,y){
 let counter = 0;
 function update(){
 	// ゲームクリアーになったら以後更新をストップ
-	if (isGameClear()) return;
+	if (isGameClear.value) return;
 
 	// 1. ランダムに空き地に草が生える
 	if( Math.random() > 0.985 ){

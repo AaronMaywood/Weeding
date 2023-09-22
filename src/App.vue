@@ -7,7 +7,7 @@ gameStart();
 <template>
 	<h1>草むしり</h1>
 	<Garden />
-	<p class="clear" v-if="isGameClear()">GAME CLEAR!</p>
+	<p class="clear" v-if="isGameClear">GAME CLEAR!</p>
 </template>
 
 <style scoped>
@@ -25,7 +25,7 @@ h1 {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-100%);
+	transform: translate(-50%,-50%);
 }
 </style>
 
